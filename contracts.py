@@ -10,14 +10,22 @@ def validate_contract(contract):
         raise ValueError("contract needs fields")
     names=set()
     for field in contract["fields"]:
+        if not isinstance(field, dict):
+            raise ValueError("field must be an object")
         name=field.get("name")
         if not isinstance(name,str) or not name or name in names or field.get("type") not in ("string","integer","number","boolean"):
             raise ValueError("invalid or duplicate field")
+        if "required" in field and not isinstance(field["required"], bool):
+            raise ValueError("required must be boolean")
+        if "allowed" in field and (not isinstance(field["allowed"], list) or not all(isinstance(v, str) for v in field["allowed"])):
+            raise ValueError("allowed must be a list of strings")
         names.add(name)
     return contract
 
 
 def validate_value(value,field):
+    if not isinstance(value, str):
+        return "not a string"
     if field.get("required",False) and value=="":
         return "required"
     if value=="":
@@ -44,6 +52,8 @@ def check(rows,contract):
     count=0
     for rownum,row in enumerate(rows,start=2):
         count+=1
+        if None in row:
+            errors.append({"row": rownum, "field": "*", "reason": "extra CSV columns"})
         for field in contract["fields"]:
             name=field["name"]
             value=row.get(name)
