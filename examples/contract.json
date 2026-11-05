@@ -1,0 +1,1 @@
+{"fields":[{"name":"id","type":"integer","required":true},{"name":"status","type":"string","required":true,"allowed":["active","paused","closed"]},{"name":"quantity","type":"number","required":true},{"name":"verified","type":"boolean","required":false}]}
