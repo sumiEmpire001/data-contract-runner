@@ -1,0 +1,4 @@
+id,status,quantity,verified
+1,active,4.5,true
+2,paused,0,false
+3,unknown,3,true
