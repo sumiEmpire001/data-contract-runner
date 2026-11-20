@@ -1,0 +1,3 @@
+#include "Core.h"
+#include <cassert>
+int main(){lord_sumi::Contract<3> c;assert(c.add({lord_sumi::Integer,true}));assert(c.add({lord_sumi::Number,false}));assert(c.add({lord_sumi::Boolean,true}));assert(c.check(0,"42")==lord_sumi::Valid);assert(c.check(0,"2x")==lord_sumi::Invalid);assert(c.check(0,"")==lord_sumi::Missing);assert(c.check(1,"")==lord_sumi::Valid);assert(c.check(1,"nan")==lord_sumi::Invalid);assert(c.check(2,"true")==lord_sumi::Valid);assert(c.check(2,"yes")==lord_sumi::Invalid);assert(!c.add({lord_sumi::Text,true}));assert(c.fault());assert(c.check(0,"1")==lord_sumi::Fault);}

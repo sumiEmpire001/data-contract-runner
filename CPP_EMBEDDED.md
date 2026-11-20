@@ -1,0 +1,2 @@
+# Embedded C++ companion
+Bounded, allocation-free scalar data validation for sensor telemetry. Python CLI and JSON/CSV parsing are preserved unchanged; C++ does not parse CSV or JSON, enforce allowed-value lists or report row numbers. The host provides strings and schemas. Capacity errors latch a fault until reset. Use: cmake -S . -B build && cmake --build build && ctest --test-dir build --output-on-failure. No real board or sensor tests have been performed; validate firmware, calibration, voltage levels and independent fail-safe interlocks before hardware use.
